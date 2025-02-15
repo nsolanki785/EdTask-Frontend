@@ -42,7 +42,9 @@ const Registration = ({ selectedrole }) => {
       if (registeruser?.payload?.status === 201) {
         toast.success(registeruser?.data?.message);
         resetForm();
-        navigate("/login");
+        setTimeout(() => {
+          navigate("/login");
+        }, 5000);
       } else {
         toast.error(registeruser?.payload?.message);
       }
@@ -136,7 +138,7 @@ const Registration = ({ selectedrole }) => {
               initialValues={{
                 firstName: "",
                 lastName: "",
-                email: userDetails?.email || "",
+                email: userDetails?.email || "admin@eracalculations.com",
                 password: "",
                 confirmPassword: "",
                 role: selectedrole || "customer", // Default role
