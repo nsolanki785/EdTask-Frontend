@@ -23,6 +23,7 @@ const Registration = ({ selectedrole }) => {
   const [otp, setOtp] = useState("");
   const [userDetails, setUserdetails] = useState({});
   const [isRequesting, setIsRequesting] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,7 +36,7 @@ const Registration = ({ selectedrole }) => {
           email: values.email,
           password: values.password,
           role: values.role,
-          isVerified: true,
+          isVerified: isEmailVerified || false,
         })
       );
 
@@ -98,6 +99,7 @@ const Registration = ({ selectedrole }) => {
         otp: otp,
       });
       if (verifyOtpforuserragister.status == 200) {
+        setIsEmailVerified(true);
         toast.success(verifyOtpforuserragister.data.message);
         // setShowErrorMessage(true);
         setdisableSubmitBtn(false);
@@ -138,7 +140,7 @@ const Registration = ({ selectedrole }) => {
               initialValues={{
                 firstName: "",
                 lastName: "",
-                email: userDetails?.email || "admin@eracalculations.com",
+                email: userDetails?.email || "",
                 password: "",
                 confirmPassword: "",
                 role: selectedrole || "customer", // Default role
